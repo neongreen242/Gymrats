@@ -16,12 +16,12 @@ import com.parse.ParseUser;
 
 public class LoginActivity extends AppCompatActivity {
 
-    public static final String TAG = "LoginActivity";
 
-    private Button  btnSignup;
     private Button  btnLogin;
+    private Button  btnSignup;
     private EditText etUsername;
     private EditText etPassword;
+    public static final String TAG = "LoginActivity";
 
 
     @Override
@@ -29,10 +29,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        btnLogin = findViewById(R.id.btnLogin);
         btnSignup = findViewById(R.id.btnSignup);
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
-        btnLogin = findViewById(R.id.btnLogin);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,6 +57,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    //TODO: Make the user stay signed in after he leaves the app and comes back
     private void loginUser(String username, String password) {
         Log.i(TAG, "Attempting to Login user");
 
