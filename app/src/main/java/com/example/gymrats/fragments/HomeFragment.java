@@ -130,8 +130,10 @@ public class HomeFragment extends Fragment {
         // include data referred by user key
         query.include(Post.KEY_USER);
         // limit query to latest 20 items
+        //TODO: add variable for this
         query.setLimit(20);
         // order posts by creation date (newest first)
+        //TODO: add variable for this as well
         query.addDescendingOrder("createdAt");
         // start an asynchronous call for posts
         query.findInBackground(new FindCallback<Post>() {
