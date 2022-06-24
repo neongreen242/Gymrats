@@ -1,29 +1,53 @@
 package com.example.gymrats;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.gymrats.fragments.ComposeFragment;
+import com.example.gymrats.fragments.HomeFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.parse.Parse;
+import com.parse.ParseUser;
 
 public class MainActivity extends AppCompatActivity {
 
+    protected ImageButton btnLogout;
     private BottomNavigationView bottomNavigationView;
     final FragmentManager fragmentManager = getSupportFragmentManager();
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        btnLogout = findViewById(R.id.btnLogout);
         bottomNavigationView = findViewById(R.id.bottomNavigation);
+
+        //Logouts user from the main platform
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ParseUser.logOutInBackground();
+                ParseUser currentUser = ParseUser.getCurrentUser();
+                Intent i = new Intent(MainActivity.this,LoginActivity.class);
+                startActivity(i);
+            }
+        });
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -32,7 +56,7 @@ public class MainActivity extends AppCompatActivity {
                 switch (menuItem.getItemId()) {
                     case R.id.action_home:
                         Toast.makeText(MainActivity.this, "Home!!", Toast.LENGTH_SHORT).show();
-                        fragment = new ComposeFragment();
+                        fragment = new HomeFragment();
 
                         break;
                     case R.id.action_compose:
@@ -57,7 +81,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     default:
-                        fragment = new ComposeFragment();
+                        fragment = new HomeFragment();
                         break;
                 }
                 fragmentManager.beginTransaction().replace(R.id.flContainer,fragment).commit();
@@ -65,8 +89,11 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
+        //Set default to home
+        bottomNavigationView.setSelectedItemId(R.id.action_home);
 
     }
+
+
 
 }

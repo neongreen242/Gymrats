@@ -54,7 +54,7 @@ public class ComposeFragment extends Fragment {
 
     //gets photofile and photo file name for the fragment xml
     private File photoFile;
-    public String photoFileName = "photo.jpg";
+    final public String photoFileName = "photo.jpg";
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
