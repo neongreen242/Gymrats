@@ -1,4 +1,4 @@
-package com.example.gymrats;
+package com.example.gymrats.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,10 +8,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.gymrats.models.Post;
+import com.example.gymrats.R;
 import com.parse.ParseFile;
 
 import java.util.Date;

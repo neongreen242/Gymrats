@@ -17,8 +17,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.example.gymrats.Post;
-import com.example.gymrats.ProfileAdapter;
+import com.example.gymrats.models.Post;
+import com.example.gymrats.adapters.ProfileAdapter;
 import com.example.gymrats.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;

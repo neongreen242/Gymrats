@@ -60,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    //TODO: Make the user stay signed in after he leaves the app and comes back
+
     private void loginUser(String username, String password) {
         Log.i(TAG, "Attempting to Login user");
 
@@ -69,6 +69,7 @@ public class LoginActivity extends AppCompatActivity {
             public void done(ParseUser user, ParseException e) {
                 if (e != null) {
                     Log.e(TAG, "Issue with login", e);
+                    Toast.makeText(LoginActivity.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 goMainActivity();

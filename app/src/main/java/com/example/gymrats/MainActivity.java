@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.gymrats.fragments.ComposeFragment;
+import com.example.gymrats.fragments.ExerciseFragment;
 import com.example.gymrats.fragments.HomeFragment;
 import com.example.gymrats.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.action_exercise:
                         Toast.makeText(MainActivity.this, "Exercise!!", Toast.LENGTH_SHORT).show();
-                        fragment = new ComposeFragment();
+                        fragment = new ExerciseFragment();
 
                         break;
                     case R.id.action_profile:

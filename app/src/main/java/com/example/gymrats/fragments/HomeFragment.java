@@ -14,8 +14,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.gymrats.Post;
-import com.example.gymrats.PostAdapter;
+import com.example.gymrats.models.Post;
+import com.example.gymrats.adapters.PostAdapter;
 import com.example.gymrats.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -119,19 +119,19 @@ public class HomeFragment extends Fragment {
         rvPosts.setAdapter(adapter);
         // set the layout manager on the recycler view
         rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
-        // query posts from Parstagram
         queryPosts();
 
     }
 
     protected void queryPosts() {
+        Integer postLimit = 20;
+
         // specify what type of data we want to query - Post.class
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         // include data referred by user key
         query.include(Post.KEY_USER);
-        // limit query to latest 20 items
-        //TODO: add variable for this
-        query.setLimit(20);
+
+        query.setLimit(postLimit);
         // order posts by creation date (newest first)
         //TODO: add variable for this as well
         query.addDescendingOrder("createdAt");
