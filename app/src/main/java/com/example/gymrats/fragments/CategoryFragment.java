@@ -1,6 +1,5 @@
 package com.example.gymrats.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -29,7 +28,7 @@ import java.util.List;
 
 import okhttp3.Headers;
 
-public class ExerciseFragment extends Fragment {
+public class CategoryFragment extends Fragment {
 
 
     protected RecyclerView rvCategories;
@@ -42,7 +41,7 @@ public class ExerciseFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_exercise, container, false);
+        return inflater.inflate(R.layout.fragment_category, container, false);
     }
 
     @Override
@@ -58,18 +57,20 @@ public class ExerciseFragment extends Fragment {
 
         rvCategories.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        //Calls the API
         AsyncHttpClient client = new AsyncHttpClient();
+        //Uses the API URL to call the array of categories
         client.get(CATEGORY_URL, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 Log.d(TAG, "onSuccess");
                 JSONObject jsonObject = json.jsonObject;
+                //Try catches the JSON exception
                 try {
                     JSONArray results = jsonObject.getJSONArray("results");
                     Log.i(TAG,"results"+results.toString());
                     exercisesCategories.addAll(ExercisesCategories.fromJsonArray(results));
                     categoryAdapter.notifyDataSetChanged();
-                    Log.i(TAG,"Movies:" + exercisesCategories.size());
                 } catch (JSONException e) {
                     Log.e(TAG,"Hit json exception");
                     e.printStackTrace();
