@@ -2,7 +2,6 @@ package com.example.gymrats.fragments;
 
 import static android.app.Activity.RESULT_OK;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -25,7 +24,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.gymrats.Post;
+import com.example.gymrats.models.Post;
 import com.example.gymrats.R;
 import com.parse.FindCallback;
 import com.parse.ParseException;

@@ -18,7 +18,9 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.gymrats.fragments.ComposeFragment;
+import com.example.gymrats.fragments.ExerciseFragment;
 import com.example.gymrats.fragments.HomeFragment;
+import com.example.gymrats.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.Parse;
@@ -43,7 +45,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ParseUser.logOutInBackground();
-                ParseUser currentUser = ParseUser.getCurrentUser();
                 Intent i = new Intent(MainActivity.this,LoginActivity.class);
                 startActivity(i);
             }
@@ -71,12 +72,12 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.action_exercise:
                         Toast.makeText(MainActivity.this, "Exercise!!", Toast.LENGTH_SHORT).show();
-                        fragment = new ComposeFragment();
+                        fragment = new ExerciseFragment();
 
                         break;
                     case R.id.action_profile:
                         Toast.makeText(MainActivity.this, "Profile!!", Toast.LENGTH_SHORT).show();
-                        fragment = new ComposeFragment();
+                        fragment = new ProfileFragment();
 
                         break;
 

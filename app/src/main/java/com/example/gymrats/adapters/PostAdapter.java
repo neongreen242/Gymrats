@@ -1,4 +1,4 @@
-package com.example.gymrats;
+package com.example.gymrats.adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,10 +8,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.gymrats.models.Post;
+import com.example.gymrats.R;
 import com.parse.ParseFile;
 
 import java.util.Date;
@@ -88,19 +89,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivImage);
             }
-//            Glide.with(context)
-//                    .load(post.getUser().getParseFile("profileImage").getUrl())
-//                    .circleCrop()
-//                    .into(ivProfilePicture);
+            Glide.with(context)
+                    .load(post.getUser().getParseFile("profileImage").getUrl())
+                    .circleCrop()
+                    .into(ivProfilePicture);
 
-//            ivImage.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    DetailFragment detailFragment = new DetailFragment(post);
-//                    AppCompatActivity activity = (AppCompatActivity) v.getContext();
-//                    activity.getSupportFragmentManager().beginTransaction().replace(R.id.flContainer,detailFragment).addToBackStack(null).commit();
-//                }
-//            });
             Date createdAt = post.getCreatedAt();
             String timeAgo = Post.calculateTimeAgo(createdAt);
             tvTime.setText(timeAgo);

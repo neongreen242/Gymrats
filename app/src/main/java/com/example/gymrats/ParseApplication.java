@@ -1,6 +1,8 @@
 package com.example.gymrats;
 
 import android.app.Application;
+
+import com.example.gymrats.models.Post;
 import com.parse.Parse;
 import com.parse.ParseObject;
 

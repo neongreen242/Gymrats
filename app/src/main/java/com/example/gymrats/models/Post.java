@@ -1,4 +1,4 @@
-package com.example.gymrats;
+package com.example.gymrats.models;
 
 
 import android.util.Log;
