@@ -2,30 +2,38 @@ package com.example.gymrats.adapters;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.gymrats.MainActivity;
 import com.example.gymrats.R;
-import com.example.gymrats.fragments.ExeciseFragment;
+import com.example.gymrats.fragments.ExerciseFragment;
+import com.example.gymrats.models.Exercises;
 import com.example.gymrats.models.ExercisesCategories;
 
+import org.parceler.Parcel;
 import org.parceler.Parcels;
 
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHolder> {
 
+
     Context context;
     List<ExercisesCategories> exercisesCategories;
+    final FragmentManager fragmentManager;
 
     public CategoryAdapter(Context context, List<ExercisesCategories> exercisesCategories){
         this.context = context;
         this.exercisesCategories = exercisesCategories;
+        this.fragmentManager = ((MainActivity)context).getSupportFragmentManager();
     }
 
     @NonNull
@@ -68,16 +76,21 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryAdapter.ViewHo
         public void onClick(View v) {
             int position = getAdapterPosition();
 
+
             //Check that position is valid
             if (position != RecyclerView.NO_POSITION){
                 //grabs the workout at the position
                 ExercisesCategories category = exercisesCategories.get(position);
-                //Make intent for new activity
-                Intent intent = new Intent(context, ExeciseFragment.class);
-                //Serialize using parceler
-                intent.putExtra(ExercisesCategories.class.getSimpleName(), Parcels.wrap(category));
 
-                context.startActivity(intent);
+                //Make intent for new activity
+                Intent intent = new Intent(context, ExerciseFragment.class);
+
+
+                ExerciseFragment fragment  = ExerciseFragment.newInstance(category.getId());
+
+                fragmentManager.beginTransaction().replace(R.id.flContainer, fragment).commit();
+
+
             }
 
         }

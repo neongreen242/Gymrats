@@ -33,7 +33,7 @@ public class CategoryFragment extends Fragment {
 
     protected RecyclerView rvCategories;
     List<ExercisesCategories> exercisesCategories;
-    public static final String  TAG = "ExerciseFragment";
+    public static final String  TAG = "CategoryFragment";
     public static final String CATEGORY_URL = "https://wger.de/api/v2/exercisecategory/";
 
 
@@ -46,6 +46,7 @@ public class CategoryFragment extends Fragment {
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+
         super.onViewCreated(view, savedInstanceState);
 
         rvCategories = view.findViewById(R.id.rvCategories);

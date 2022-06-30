@@ -9,13 +9,15 @@ import java.util.List;
 
 public class ExercisesCategories {
     String category;
-
+    String id;
+    //List<Exercises> exercises;
 
     public ExercisesCategories(){}
 
     public ExercisesCategories (JSONObject jsonObject)throws JSONException{
 
         category = jsonObject.getString("name");
+        id = Integer.toString(jsonObject.getInt("id"));
 
     }
 
@@ -30,6 +32,10 @@ public class ExercisesCategories {
 
     public String getCategory() {
         return category;
+    }
+
+    public String getId() {
+        return id;
     }
 }
 
