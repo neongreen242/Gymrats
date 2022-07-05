@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.example.gymrats.fragments.ComposeFragment;
 import com.example.gymrats.fragments.CategoryFragment;
 import com.example.gymrats.fragments.HomeFragment;
+import com.example.gymrats.fragments.MapFragment;
 import com.example.gymrats.fragments.ProfileFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.parse.ParseUser;
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.action_gyms:
                         Toast.makeText(MainActivity.this, "Gyms!!", Toast.LENGTH_SHORT).show();
-                        fragment = new ComposeFragment();
+                        fragment = new MapFragment();
 
                         break;
                     case R.id.action_exercise:

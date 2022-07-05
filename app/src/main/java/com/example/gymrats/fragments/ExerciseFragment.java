@@ -86,7 +86,6 @@ public class ExerciseFragment extends Fragment {
 
         AsyncHttpClient client = new AsyncHttpClient();
 
-        System.out.println("heyy: "+EXERCISE_URL + "?category=" + categoryID);
         client.get(EXERCISE_URL + "?limit=15" + "?category=" + categoryID + "&language=2", new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
