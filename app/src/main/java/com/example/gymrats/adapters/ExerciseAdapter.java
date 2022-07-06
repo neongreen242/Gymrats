@@ -14,12 +14,12 @@ import com.example.gymrats.models.Exercises;
 
 import java.util.List;
 
-public class ExercisesAdapter extends RecyclerView.Adapter<ExercisesAdapter.ViewHolder> {
+public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHolder> {
 
     Context context;
     List<Exercises> exercises;
 
-    public ExercisesAdapter(Context context, List<Exercises> exercises) {
+    public ExerciseAdapter(Context context, List<Exercises> exercises) {
         this.context = context;
         this.exercises = exercises;
     }

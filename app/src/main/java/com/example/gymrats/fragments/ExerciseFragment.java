@@ -16,14 +16,12 @@ import android.view.ViewGroup;
 import com.codepath.asynchttpclient.AsyncHttpClient;
 import com.codepath.asynchttpclient.callback.JsonHttpResponseHandler;
 import com.example.gymrats.R;
-import com.example.gymrats.adapters.ExercisesAdapter;
+import com.example.gymrats.adapters.ExerciseAdapter;
 import com.example.gymrats.models.Exercises;
-import com.example.gymrats.models.ExercisesCategories;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.parceler.Parcels;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +75,7 @@ public class ExerciseFragment extends Fragment {
         rvExercises = view.findViewById(R.id.rvExercises);
         exercises = new ArrayList<>();
 
-        ExercisesAdapter exercisesAdapter = new ExercisesAdapter(getContext(), exercises);
+        ExerciseAdapter exercisesAdapter = new ExerciseAdapter(getContext(), exercises);
 
         //Sets the recycler view to the adapter
         rvExercises.setAdapter(exercisesAdapter);
@@ -86,7 +84,7 @@ public class ExerciseFragment extends Fragment {
 
         AsyncHttpClient client = new AsyncHttpClient();
 
-        client.get(EXERCISE_URL + "?limit=15" + "?category=" + categoryID + "&language=2", new JsonHttpResponseHandler() {
+        client.get(EXERCISE_URL + "?limit=200" + "&category=" + categoryID + "&language=2", new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Headers headers, JSON json) {
                 Log.d(TAG, "onSuccess");
