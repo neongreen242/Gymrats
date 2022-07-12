@@ -34,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         btnLogin = findViewById(R.id.btnLogin);
         btnSignup = findViewById(R.id.btnSignup);
-        etUsername = findViewById(R.id.etUsername);
+        etUsername = findViewById(R.id.etDescription);
         etPassword = findViewById(R.id.etPassword);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -76,7 +76,6 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     private void goMainActivity() {
