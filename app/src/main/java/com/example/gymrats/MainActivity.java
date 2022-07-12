@@ -1,29 +1,23 @@
 package com.example.gymrats;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.gymrats.fragments.ComposeFragment;
-import com.example.gymrats.fragments.ExerciseFragment;
+import com.example.gymrats.fragments.CategoryFragment;
 import com.example.gymrats.fragments.HomeFragment;
+import com.example.gymrats.fragments.MapFragment;
 import com.example.gymrats.fragments.ProfileFragment;
-import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.parse.Parse;
 import com.parse.ParseUser;
 
 public class MainActivity extends AppCompatActivity {
@@ -67,12 +61,12 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case R.id.action_gyms:
                         Toast.makeText(MainActivity.this, "Gyms!!", Toast.LENGTH_SHORT).show();
-                        fragment = new ComposeFragment();
+                        fragment = new MapFragment();
 
                         break;
                     case R.id.action_exercise:
                         Toast.makeText(MainActivity.this, "Exercise!!", Toast.LENGTH_SHORT).show();
-                        fragment = new ExerciseFragment();
+                        fragment = new CategoryFragment();
 
                         break;
                     case R.id.action_profile:
