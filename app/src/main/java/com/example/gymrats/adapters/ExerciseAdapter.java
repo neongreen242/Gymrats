@@ -49,7 +49,7 @@ public class ExerciseAdapter extends RecyclerView.Adapter<ExerciseAdapter.ViewHo
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            tvExercises = itemView.findViewById(R.id.tvExercises);
+            tvExercises = itemView.findViewById(R.id.btnExercises);
 
             itemView.setOnClickListener(this);
         }
