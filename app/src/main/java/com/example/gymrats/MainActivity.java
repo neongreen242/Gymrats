@@ -31,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btnLogout = findViewById(R.id.btnLogout);
+        btnLogout = findViewById(R.id.logout);
         bottomNavigationView = findViewById(R.id.bottomNavigation);
 
         //Logouts user from the main platform
