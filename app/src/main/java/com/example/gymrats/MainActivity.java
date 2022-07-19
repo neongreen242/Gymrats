@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentManager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
@@ -17,7 +18,10 @@ import com.example.gymrats.fragments.CategoryFragment;
 import com.example.gymrats.fragments.HomeFragment;
 import com.example.gymrats.fragments.MapFragment;
 import com.example.gymrats.fragments.ProfileFragment;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.parse.ParseUser;
 
 public class MainActivity extends AppCompatActivity {
@@ -25,11 +29,35 @@ public class MainActivity extends AppCompatActivity {
     protected ImageButton btnLogout;
     private BottomNavigationView bottomNavigationView;
     final FragmentManager fragmentManager = getSupportFragmentManager();
+    public static final String TAG = "TAG";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        String token = task.getResult();
+
+                        // Log and toast
+
+                        Log.d(TAG, token);
+                        Toast.makeText(MainActivity.this,"you device token is : " + token, Toast.LENGTH_SHORT).show();
+
+
+                    }
+                });
+
 
         btnLogout = findViewById(R.id.logout);
         bottomNavigationView = findViewById(R.id.bottomNavigation);
@@ -43,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

@@ -2,6 +2,9 @@ package com.example.gymrats.fragments;
 
 import static android.app.Activity.RESULT_OK;
 
+
+import static com.example.gymrats.filter.Filter.CATEGORY_LIST;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,9 +22,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.gymrats.models.Post;
@@ -34,6 +39,8 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -43,6 +50,7 @@ public class ComposeFragment extends Fragment {
 
     //required variables for the compose page
     private Button btnSubmit;
+    private Spinner workoutTag;
     private ImageView ivPostImage;
     private Button btnCaptureImage;
     private EditText etDescription;
@@ -71,10 +79,16 @@ public class ComposeFragment extends Fragment {
 
         //Calls all the views into place through their name
         btnSubmit = view.findViewById(R.id.btnSubmit);
+        workoutTag = (Spinner) view.findViewById(R.id.workoutTag);
         ivPostImage = view.findViewById(R.id.ivPostImage);
         etDescription = view.findViewById(R.id.etDescription);
-        btnCaptureImage = view.findViewById(R.id.btnCaptureImage);
         etMuscleWorked = view.findViewById(R.id.etMuscleWorked);
+        btnCaptureImage = view.findViewById(R.id.btnCaptureImage);
+
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), androidx.constraintlayout.widget.R.layout.support_simple_spinner_dropdown_item ,CATEGORY_LIST);
+        adapter.setDropDownViewResource(androidx.constraintlayout.widget.R.layout.support_simple_spinner_dropdown_item);
+        workoutTag.setAdapter(adapter);
 
 
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {

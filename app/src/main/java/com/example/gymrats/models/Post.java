@@ -29,6 +29,10 @@ public class Post extends ParseObject {
         put(KEY_WORKOUT,workout);
     }
 
+    public String getWorkout(){
+        return getString(KEY_WORKOUT);
+    }
+
     public ParseFile getImage(){
         return getParseFile(KEY_IMAGE);
     }
