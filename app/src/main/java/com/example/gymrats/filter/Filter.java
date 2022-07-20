@@ -1,5 +1,7 @@
 package com.example.gymrats.filter;
 
+import com.example.gymrats.models.Post;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -11,5 +13,10 @@ public class Filter {
 
     private Filter (){}
 
+//    public List<Post> getPostByFiltering(List<String> types, List<Post> currentPosts){
+//
+//        List<String> categoryWords = new ArrayList<>();
+//
+//    }
 
 }

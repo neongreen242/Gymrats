@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -72,6 +73,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                MyFireBaseMessaging.sendNotification("Good Job","Keep it up");
                 goMainActivity();
                 Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_SHORT).show();
             }

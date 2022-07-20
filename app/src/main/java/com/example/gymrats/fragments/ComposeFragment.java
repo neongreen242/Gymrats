@@ -86,6 +86,7 @@ public class ComposeFragment extends Fragment {
         btnCaptureImage = view.findViewById(R.id.btnCaptureImage);
 
 
+        //Sets the list array into the spinner dropdown
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), androidx.constraintlayout.widget.R.layout.support_simple_spinner_dropdown_item ,CATEGORY_LIST);
         adapter.setDropDownViewResource(androidx.constraintlayout.widget.R.layout.support_simple_spinner_dropdown_item);
         workoutTag.setAdapter(adapter);
