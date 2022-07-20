@@ -79,10 +79,10 @@ public class ComposeFragment extends Fragment {
 
         //Calls all the views into place through their name
         btnSubmit = view.findViewById(R.id.btnSubmit);
-        workoutTag = (Spinner) view.findViewById(R.id.workoutTag);
         ivPostImage = view.findViewById(R.id.ivPostImage);
         etDescription = view.findViewById(R.id.etDescription);
         etMuscleWorked = view.findViewById(R.id.etMuscleWorked);
+        workoutTag = (Spinner) view.findViewById(R.id.workoutTag);
         btnCaptureImage = view.findViewById(R.id.btnCaptureImage);
 
 

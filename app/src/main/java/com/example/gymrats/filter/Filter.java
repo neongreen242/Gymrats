@@ -13,10 +13,10 @@ public class Filter {
 
     private Filter (){}
 
-//    public List<Post> getPostByFiltering(List<String> types, List<Post> currentPosts){
-//
-//        List<String> categoryWords = new ArrayList<>();
-//
-//    }
+    public void getPostByFiltering(List<String> types, List<Post> currentPosts){
+
+        List<String> categoryWords = new ArrayList<>();
+
+    }
 
 }

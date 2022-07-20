@@ -61,10 +61,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
         private TextView tvTime;
         private ImageView ivImage;
+        private TextView tvWorkout;
         private TextView tvUsername;
         private TextView tvDescription;
         protected ImageView ivProfilePicture;
-        private TextView tvWorkout;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
