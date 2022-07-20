@@ -37,28 +37,6 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
 
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(new OnCompleteListener<String>() {
-                    @Override
-                    public void onComplete(@NonNull Task<String> task) {
-                        if (!task.isSuccessful()) {
-                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
-                            return;
-                        }
-
-                        // Get new FCM registration token
-                        String token = task.getResult();
-
-                        // Log and toast
-
-                        Log.d(TAG, token);
-                        Toast.makeText(MainActivity.this,"you device token is : " + token, Toast.LENGTH_SHORT).show();
-
-
-                    }
-                });
-
-
         btnLogout = findViewById(R.id.logout);
         bottomNavigationView = findViewById(R.id.bottomNavigation);
 
