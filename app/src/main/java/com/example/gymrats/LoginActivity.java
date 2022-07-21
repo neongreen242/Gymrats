@@ -61,7 +61,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-
     private void loginUser(String username, String password) {
         Log.i(TAG, "Attempting to Login user");
 
@@ -73,9 +72,7 @@ public class LoginActivity extends AppCompatActivity {
                     Toast.makeText(LoginActivity.this, "Incorrect Password", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                MyFireBaseMessaging.sendNotification("Good Job","Keep it up");
                 goMainActivity();
-                Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_SHORT).show();
             }
         });
     }

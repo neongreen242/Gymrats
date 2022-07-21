@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -62,6 +63,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         private TextView tvTime;
         private ImageView ivImage;
         private TextView tvWorkout;
+        private Spinner workoutTag;
         private TextView tvUsername;
         private TextView tvDescription;
         protected ImageView ivProfilePicture;
@@ -71,6 +73,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
             tvTime = itemView.findViewById(R.id.tvTime);
             ivImage = itemView.findViewById(R.id.ivImage);
+            workoutTag = itemView.findViewById(R.id.workoutTag);
             tvWorkout = itemView.findViewById(R.id.tvWorkout);
             tvUsername = itemView.findViewById(R.id.tvUsername);
             tvDescription = itemView.findViewById(R.id.tvDescription);
@@ -80,7 +83,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
         public void bind(Post post) {
 
-            tvWorkout.setText(post.getWorkout());
+            tvWorkout.setText(post.getTag());
             tvDescription.setText(post.getDescription());
             tvUsername.setText(post.getUser().getUsername());
 

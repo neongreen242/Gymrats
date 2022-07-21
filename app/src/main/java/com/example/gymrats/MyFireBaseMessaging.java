@@ -45,8 +45,7 @@ public class MyFireBaseMessaging extends FirebaseMessagingService {
         super.onMessageReceived(message);
         handleMessage(message);
         this.message = message;
-        Log.i(TAG, "Received message");
-
+        Log.e(TAG, "Received message"+ message.getNotification().getBody());
     }
 
     private void handleMessage(RemoteMessage message) {

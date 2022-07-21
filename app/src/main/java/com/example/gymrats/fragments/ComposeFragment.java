@@ -105,6 +105,8 @@ public class ComposeFragment extends Fragment {
             public void onClick(View v) {
                 String workout = etMuscleWorked.getText().toString();
                 String description = etDescription.getText().toString();
+                String tag = workoutTag.toString();
+
                 if (description.isEmpty()) {
                     Toast.makeText(getContext(), "Description cannot be empty", Toast.LENGTH_SHORT).show();
                     return;
@@ -117,7 +119,7 @@ public class ComposeFragment extends Fragment {
                     Toast.makeText(getContext(), "There is no workout!", Toast.LENGTH_SHORT).show();
                 }
                 ParseUser currentUser = ParseUser.getCurrentUser();
-                savePost(description, currentUser, photoFile,workout);
+                savePost(description, currentUser, photoFile,workout,tag);
             }
         });
 
@@ -175,13 +177,14 @@ public class ComposeFragment extends Fragment {
     }
 
 
-    private void savePost(String description, ParseUser currentUser, File photoFile, String workout) {
+    private void savePost(String description, ParseUser currentUser, File photoFile, String workout,String tag) {
         Post post = new Post();
         post.setDescription(description);
         //post.setImage()
         post.setUser(currentUser);
         post.setImage(new ParseFile(photoFile));
         post.setWorkout(workout);
+        post.setTag(tag);
 
         post.saveInBackground(new SaveCallback() {
             @Override
