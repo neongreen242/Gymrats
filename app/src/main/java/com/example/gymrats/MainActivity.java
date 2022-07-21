@@ -41,6 +41,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    protected Button btnFilter;
     protected ImageButton btnLogout;
     public static final String TAG = "TAG";
     private BottomNavigationView bottomNavigationView;
@@ -52,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         btnLogout = findViewById(R.id.logout);
+        btnFilter = findViewById(R.id.btnFilter);
         bottomNavigationView = findViewById(R.id.bottomNavigation);
 
         //Logouts user from the main platform
@@ -72,26 +74,31 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.action_home:
                         Toast.makeText(MainActivity.this, "Home!!", Toast.LENGTH_SHORT).show();
                         fragment = new HomeFragment();
+                        btnFilter.setVisibility(bottomNavigationView.VISIBLE);
 
                         break;
                     case R.id.action_compose:
                         Toast.makeText(MainActivity.this, "Compose!!", Toast.LENGTH_SHORT).show();
-
                         fragment = new ComposeFragment();
+                        btnFilter.setVisibility(bottomNavigationView.GONE);
+
                         break;
                     case R.id.action_gyms:
                         Toast.makeText(MainActivity.this, "Gyms!!", Toast.LENGTH_SHORT).show();
                         fragment = new MapFragment();
+                        btnFilter.setVisibility(bottomNavigationView.GONE);
 
                         break;
                     case R.id.action_exercise:
                         Toast.makeText(MainActivity.this, "Exercise!!", Toast.LENGTH_SHORT).show();
                         fragment = new CategoryFragment();
+                        btnFilter.setVisibility(bottomNavigationView.GONE);
 
                         break;
                     case R.id.action_profile:
                         Toast.makeText(MainActivity.this, "Profile!!", Toast.LENGTH_SHORT).show();
                         fragment = new ProfileFragment();
+                        btnFilter.setVisibility(bottomNavigationView.GONE);
 
                         break;
 

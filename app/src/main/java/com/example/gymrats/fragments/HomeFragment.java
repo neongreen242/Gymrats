@@ -96,11 +96,14 @@ public class HomeFragment extends Fragment {
                 builderSingle.setTitle("Filter By Muscle");
 
                 final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_singlechoice);
+                arrayAdapter.add("ABS");
                 arrayAdapter.add("ARMS");
                 arrayAdapter.add("LEGS");
-                arrayAdapter.add("CHEST");
+                arrayAdapter.add("BACK");
                 arrayAdapter.add("LEGS");
-                arrayAdapter.add("ABS");
+                arrayAdapter.add("CHEST");
+                arrayAdapter.add("CALVES");
+                arrayAdapter.add("SHOULDERS");
 
                 builderSingle.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
                     @Override
