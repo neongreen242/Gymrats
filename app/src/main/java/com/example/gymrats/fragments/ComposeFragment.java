@@ -105,7 +105,7 @@ public class ComposeFragment extends Fragment {
             public void onClick(View v) {
                 String workout = etMuscleWorked.getText().toString();
                 String description = etDescription.getText().toString();
-                String tag = workoutTag.toString();
+                String tag = workoutTag.getSelectedItem().toString();
 
                 if (description.isEmpty()) {
                     Toast.makeText(getContext(), "Description cannot be empty", Toast.LENGTH_SHORT).show();

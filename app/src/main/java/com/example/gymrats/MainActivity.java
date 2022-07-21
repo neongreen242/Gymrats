@@ -26,16 +26,21 @@ import com.example.gymrats.fragments.CategoryFragment;
 import com.example.gymrats.fragments.HomeFragment;
 import com.example.gymrats.fragments.MapFragment;
 import com.example.gymrats.fragments.ProfileFragment;
+import com.example.gymrats.models.Post;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.RemoteMessage;
+import com.parse.FindCallback;
+import com.parse.ParseException;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
+
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    protected Button btnFilter;
     protected ImageButton btnLogout;
     public static final String TAG = "TAG";
     private BottomNavigationView bottomNavigationView;
@@ -47,49 +52,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         btnLogout = findViewById(R.id.logout);
-        btnFilter = findViewById(R.id.btnFilter);
         bottomNavigationView = findViewById(R.id.bottomNavigation);
-
-        btnFilter.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                AlertDialog.Builder builderSingle = new AlertDialog.Builder(MainActivity.this);
-                builderSingle.setIcon(R.drawable.gymrats_logo);
-                builderSingle.setTitle("Filter");
-
-                final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(MainActivity.this, android.R.layout.select_dialog_singlechoice);
-                arrayAdapter.add("ARMS");
-                arrayAdapter.add("LEGS");
-                arrayAdapter.add("CHEST");
-                arrayAdapter.add("LEGS");
-                arrayAdapter.add("ABS");
-
-                builderSingle.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-
-                builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String strName = arrayAdapter.getItem(which);
-                        AlertDialog.Builder builderInner = new AlertDialog.Builder(MainActivity.this);
-                        builderInner.setMessage(strName);
-                        builderInner.setTitle("Your Selected Item is");
-                        builderInner.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog,int which) {
-                                dialog.dismiss();
-                            }
-                        });
-                        builderInner.show();
-                    }
-                });
-                builderSingle.show();
-            }
-        });
 
         //Logouts user from the main platform
         btnLogout.setOnClickListener(new View.OnClickListener() {
@@ -145,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
         bottomNavigationView.setSelectedItemId(R.id.action_home);
 
     }
-
 
 
 }

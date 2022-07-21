@@ -1,5 +1,7 @@
 package com.example.gymrats.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,7 +15,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 
+import com.example.gymrats.MainActivity;
 import com.example.gymrats.models.Post;
 import com.example.gymrats.adapters.PostAdapter;
 import com.example.gymrats.R;
@@ -27,11 +32,14 @@ import java.util.List;
 
 public class HomeFragment extends Fragment {
 
-    protected SwipeRefreshLayout swipeContainer;
-    public static final String TAG = "FeedActivity";
-    protected RecyclerView rvPosts;
+    protected String filterBy;
+    protected Button btnFilter;
     protected PostAdapter adapter;
     protected List<Post> allPosts;
+    protected RecyclerView rvPosts;
+    protected SwipeRefreshLayout swipeContainer;
+
+    public static final String TAG = "FeedActivity";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -43,6 +51,9 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+
+        btnFilter = ((MainActivity)getActivity()).findViewById(R.id.btnFilter);
 
         rvPosts = view.findViewById(R.id.rvPost);
 
@@ -77,6 +88,49 @@ public class HomeFragment extends Fragment {
         rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
         queryPosts();
 
+        btnFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder builderSingle = new AlertDialog.Builder(getContext());
+                builderSingle.setIcon(R.drawable.gymrats_logo);
+                builderSingle.setTitle("Filter By Muscle");
+
+                final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_singlechoice);
+                arrayAdapter.add("ARMS");
+                arrayAdapter.add("LEGS");
+                arrayAdapter.add("CHEST");
+                arrayAdapter.add("LEGS");
+                arrayAdapter.add("ABS");
+
+                builderSingle.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
+                });
+
+                builderSingle.setAdapter(arrayAdapter, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String strName = arrayAdapter.getItem(which);
+                        filterBy = strName;
+                        AlertDialog.Builder builderInner = new AlertDialog.Builder(getContext());
+                        builderInner.setMessage(strName);
+                        builderInner.setTitle("Your Selected Item is");
+                        builderInner.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog,int which) {
+                                dialog.dismiss();
+                                queryPostsByFilter();
+                            }
+                        });
+                        builderInner.show();
+                    }
+                });
+                builderSingle.show();
+            }
+        });
+
     }
 
     protected void queryPosts() {
@@ -85,6 +139,46 @@ public class HomeFragment extends Fragment {
         // specify what type of data we want to query - Post.class
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         // include data referred by user key
+        query.include(Post.KEY_USER);
+
+        query.setLimit(postLimit);
+        // order posts by creation date (newest first)
+        //TODO: add variable for this as well
+        query.addDescendingOrder("createdAt");
+        // start an asynchronous call for posts
+        query.findInBackground(new FindCallback<Post>() {
+            @Override
+            public void done(List<Post> posts, ParseException e) {
+                // check for errors
+                if (e != null) {
+                    Log.e(TAG, "Issue with getting posts", e);
+                    return;
+                }
+
+                // for debugging purposes
+                for (Post post : posts) {
+                    Log.i(TAG, "Post: " + post.getDescription() + ", username: " + post.getUser().getUsername());
+                }
+
+                // save received posts to list and notify adapter of new data
+                allPosts.addAll(posts);
+                adapter.notifyDataSetChanged();
+                swipeContainer.setRefreshing(false);
+
+            }
+        });
+
+
+    }
+
+    protected void queryPostsByFilter() {
+        allPosts.clear();
+        Integer postLimit = 10;
+
+        // specify what type of data we want to query - Post.class
+        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
+        // include data referred by user key
+        query.whereEqualTo("tag", filterBy);
         query.include(Post.KEY_USER);
 
         query.setLimit(postLimit);
