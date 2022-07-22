@@ -104,8 +104,8 @@ public class ComposeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 String workout = etMuscleWorked.getText().toString();
-                String description = etDescription.getText().toString();
                 String tag = workoutTag.getSelectedItem().toString();
+                String description = etDescription.getText().toString();
 
                 if (description.isEmpty()) {
                     Toast.makeText(getContext(), "Description cannot be empty", Toast.LENGTH_SHORT).show();
@@ -179,12 +179,11 @@ public class ComposeFragment extends Fragment {
 
     private void savePost(String description, ParseUser currentUser, File photoFile, String workout,String tag) {
         Post post = new Post();
-        post.setDescription(description);
-        //post.setImage()
-        post.setUser(currentUser);
-        post.setImage(new ParseFile(photoFile));
-        post.setWorkout(workout);
         post.setTag(tag);
+        post.setWorkout(workout);
+        post.setUser(currentUser);
+        post.setDescription(description);
+        post.setImage(new ParseFile(photoFile));
 
         post.saveInBackground(new SaveCallback() {
             @Override

@@ -73,9 +73,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
             tvTime = itemView.findViewById(R.id.tvTime);
             ivImage = itemView.findViewById(R.id.ivImage);
-            workoutTag = itemView.findViewById(R.id.workoutTag);
             tvWorkout = itemView.findViewById(R.id.tvWorkout);
             tvUsername = itemView.findViewById(R.id.tvUsername);
+            workoutTag = itemView.findViewById(R.id.workoutTag);
             tvDescription = itemView.findViewById(R.id.tvDescription);
             ivProfilePicture = itemView.findViewById(R.id.ivProfilePicture);
 
@@ -91,6 +91,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivImage);
             }
+
             Glide.with(context)
                     .load(post.getUser().getParseFile("profileImage").getUrl())
                     .circleCrop()

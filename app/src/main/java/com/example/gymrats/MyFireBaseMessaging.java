@@ -32,13 +32,12 @@ import okhttp3.Response;
 
 public class MyFireBaseMessaging extends FirebaseMessagingService {
 
+    private RemoteMessage message;
     public static final String TAG = "FIREBASE MESSAGING";
     public static final String SEND_NOTIFICATION_URL = "https://fcm.googleapis.com/fcm/send";
-    private RemoteMessage message;
 
     public MyFireBaseMessaging() {
     }
-
 
     @Override
     public void onMessageReceived(RemoteMessage message) {

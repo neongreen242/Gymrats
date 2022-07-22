@@ -49,8 +49,8 @@ public class CategoryFragment extends Fragment {
 
         super.onViewCreated(view, savedInstanceState);
 
-        rvCategories = view.findViewById(R.id.rvCategories);
         exercisesCategories = new ArrayList<>();
+        rvCategories = view.findViewById(R.id.rvCategories);
 
         CategoryAdapter categoryAdapter = new CategoryAdapter(getContext(), exercisesCategories);
 
@@ -84,10 +84,6 @@ public class CategoryFragment extends Fragment {
 
             }
         });
-
-
-
-
 
     }
 }

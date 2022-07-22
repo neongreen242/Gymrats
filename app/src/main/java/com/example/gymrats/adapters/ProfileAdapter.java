@@ -33,20 +33,24 @@ public class ProfileAdapter extends RecyclerView.Adapter<ProfileAdapter.ViewHold
         notifyDataSetChanged();
     }
     public ProfileAdapter(Context context, List<Post> posts) {
-        this.context = context;
         this.posts = posts;
+        this.context = context;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         View view = LayoutInflater.from(context).inflate(R.layout.profile_gridview, parent, false);
+
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
         Post post = posts.get(position);
+
         holder.bind(post);
     }
 

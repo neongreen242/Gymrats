@@ -37,12 +37,12 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     protected String filterBy;
-    protected ImageButton btnFilter;
     protected View checkBoxView;
     protected CheckBox checkBox;
     protected PostAdapter adapter;
     protected List<Post> allPosts;
     protected RecyclerView rvPosts;
+    protected ImageButton btnFilter;
     protected SwipeRefreshLayout swipeContainer;
 
     public static final String TAG = "FeedActivity";
@@ -59,14 +59,13 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-        checkBoxView = View.inflate(getContext(), R.layout.check_box,null);
+        rvPosts = view.findViewById(R.id.rvPost);
 
         checkBox = (CheckBox) checkBoxView.findViewById(R.id.checkbox);
 
         btnFilter = ((MainActivity)getActivity()).findViewById(R.id.btnFilter);
 
-        rvPosts = view.findViewById(R.id.rvPost);
+        checkBoxView = View.inflate(getContext(), R.layout.check_box,null);
 
         swipeContainer = (SwipeRefreshLayout) view.findViewById(R.id.swipeContainer);
 
