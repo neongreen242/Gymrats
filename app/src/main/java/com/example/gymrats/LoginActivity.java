@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
@@ -34,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         }
         btnLogin = findViewById(R.id.btnLogin);
         btnSignup = findViewById(R.id.btnSignup);
-        etUsername = findViewById(R.id.etUsername);
+        etUsername = findViewById(R.id.etDescription);
         etPassword = findViewById(R.id.etPassword);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -60,7 +61,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-
     private void loginUser(String username, String password) {
         Log.i(TAG, "Attempting to Login user");
 
@@ -73,10 +73,8 @@ public class LoginActivity extends AppCompatActivity {
                     return;
                 }
                 goMainActivity();
-                Toast.makeText(LoginActivity.this, "Success", Toast.LENGTH_SHORT).show();
             }
         });
-
     }
 
     private void goMainActivity() {

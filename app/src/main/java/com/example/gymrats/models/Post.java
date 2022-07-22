@@ -12,9 +12,11 @@ import java.util.Date;
 
 @ParseClassName("Post")
 public class Post extends ParseObject {
-    public static final String KEY_DESCRIPTION = "description";
-    public static final String KEY_IMAGE = "image";
     public static final String KEY_USER = "user";
+    public static final String KEY_IMAGE = "image";
+    public static final String KEY_WORKOUT = "workout";
+    public static final String KEY_DESCRIPTION = "description";
+    public static final String KEY_TAG = "tag";
 
     public String getDescription(){
         return getString(KEY_DESCRIPTION);
@@ -22,6 +24,14 @@ public class Post extends ParseObject {
 
     public void setDescription(String description){
         put(KEY_DESCRIPTION, description);
+    }
+
+    public void setWorkout(String workout){
+        put(KEY_WORKOUT,workout);
+    }
+
+    public String getWorkout(){
+        return getString(KEY_WORKOUT);
     }
 
     public ParseFile getImage(){
@@ -35,8 +45,17 @@ public class Post extends ParseObject {
     public void setUser(ParseUser user){
         put(KEY_USER,user);
     }
+
     public ParseUser getUser(){
         return getParseUser(KEY_USER);
+    }
+
+    public void setTag (String tag){
+        put(KEY_TAG,tag);
+    }
+
+    public String getTag(){
+        return getString(KEY_TAG);
     }
 
     public static String calculateTimeAgo(Date createdAt) {

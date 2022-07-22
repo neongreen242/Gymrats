@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -59,32 +60,33 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView tvUsername;
-        private ImageView ivImage;
-        private TextView tvDescription;
         private TextView tvTime;
-        protected TextView tvProfileUsername;
-        protected TextView tvBio;
+        private ImageView ivImage;
+        private Spinner workoutTag;
+        private TextView tvWorkout;
+        private TextView tvUsername;
+        private TextView tvDescription;
         protected ImageView ivProfilePicture;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            ivProfilePicture = itemView.findViewById(R.id.ivProfilePicture);
-//            tvProfileUsername = itemView.findViewById(R.id.tvProfileUsername);
-//            tvBio = itemView.findViewById(R.id.tvBio);
-            tvUsername = itemView.findViewById(R.id.tvUsername);
-            ivImage = itemView.findViewById(R.id.ivImage);
-            tvDescription = itemView.findViewById(R.id.tvDescription);
             tvTime = itemView.findViewById(R.id.tvTime);
+            ivImage = itemView.findViewById(R.id.ivImage);
+            workoutTag = itemView.findViewById(R.id.workoutTag);
+            tvWorkout = itemView.findViewById(R.id.tvWorkout);
+            tvUsername = itemView.findViewById(R.id.tvUsername);
+            tvDescription = itemView.findViewById(R.id.tvDescription);
+            ivProfilePicture = itemView.findViewById(R.id.ivProfilePicture);
 
         }
 
         public void bind(Post post) {
-            // Bind the post data to the view elements
-            //tvProfileUsername.setText(post.getUser().getUsername());
+
+            tvWorkout.setText(post.getTag());
             tvDescription.setText(post.getDescription());
             tvUsername.setText(post.getUser().getUsername());
+
             ParseFile image = post.getImage();
             if (image != null) {
                 Glide.with(context).load(image.getUrl()).into(ivImage);

@@ -2,6 +2,9 @@ package com.example.gymrats.fragments;
 
 import static android.app.Activity.RESULT_OK;
 
+
+import static com.example.gymrats.filter.Filter.CATEGORY_LIST;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -19,9 +22,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.gymrats.models.Post;
@@ -34,65 +39,31 @@ import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ComposeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class ComposeFragment extends Fragment {
     public static final String TAG = "ComposeFragment";
+    public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 32;
 
     //required variables for the compose page
-    public static final int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 32;
-    private EditText etDescription;
-    private Button btnCaptureImage;
-    private ImageView ivPostImage;
     private Button btnSubmit;
+    private Spinner workoutTag;
+    private ImageView ivPostImage;
+    private Button btnCaptureImage;
+    private EditText etDescription;
+    private EditText etMuscleWorked;
+
 
     //gets photofile and photo file name for the fragment xml
     private File photoFile;
     final public String photoFileName = "photo.jpg";
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
     public ComposeFragment() {
         // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment ComposeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static ComposeFragment newInstance(String param1, String param2) {
-        ComposeFragment fragment = new ComposeFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
@@ -107,10 +78,18 @@ public class ComposeFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         //Calls all the views into place through their name
-        etDescription = view.findViewById(R.id.etDescription);
-        btnCaptureImage = view.findViewById(R.id.btnCaptureImage);
-        ivPostImage = view.findViewById(R.id.ivPostImage);
         btnSubmit = view.findViewById(R.id.btnSubmit);
+        ivPostImage = view.findViewById(R.id.ivPostImage);
+        etDescription = view.findViewById(R.id.etDescription);
+        etMuscleWorked = view.findViewById(R.id.etMuscleWorked);
+        workoutTag = (Spinner) view.findViewById(R.id.workoutTag);
+        btnCaptureImage = view.findViewById(R.id.btnCaptureImage);
+
+
+        //Sets the list array into the spinner dropdown
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.spinner_view ,CATEGORY_LIST);
+        adapter.setDropDownViewResource(androidx.constraintlayout.widget.R.layout.support_simple_spinner_dropdown_item);
+        workoutTag.setAdapter(adapter);
 
 
         btnCaptureImage.setOnClickListener(new View.OnClickListener() {
@@ -119,10 +98,15 @@ public class ComposeFragment extends Fragment {
                 launchCamera();
             }
         });
+
+
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String workout = etMuscleWorked.getText().toString();
                 String description = etDescription.getText().toString();
+                String tag = workoutTag.getSelectedItem().toString();
+
                 if (description.isEmpty()) {
                     Toast.makeText(getContext(), "Description cannot be empty", Toast.LENGTH_SHORT).show();
                     return;
@@ -131,11 +115,16 @@ public class ComposeFragment extends Fragment {
                     Toast.makeText(getContext(), "There is no image!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+                if (etMuscleWorked == null){
+                    Toast.makeText(getContext(), "There is no workout!", Toast.LENGTH_SHORT).show();
+                }
                 ParseUser currentUser = ParseUser.getCurrentUser();
-                savePost(description, currentUser, photoFile);
+                savePost(description, currentUser, photoFile,workout,tag);
             }
         });
+
     }
+
     private void launchCamera() {
         // create Intent to take a picture and return control to the calling application
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -188,12 +177,15 @@ public class ComposeFragment extends Fragment {
     }
 
 
-    private void savePost(String description, ParseUser currentUser, File photoFile) {
+    private void savePost(String description, ParseUser currentUser, File photoFile, String workout,String tag) {
         Post post = new Post();
         post.setDescription(description);
         //post.setImage()
         post.setUser(currentUser);
         post.setImage(new ParseFile(photoFile));
+        post.setWorkout(workout);
+        post.setTag(tag);
+
         post.saveInBackground(new SaveCallback() {
             @Override
             public void done(ParseException e) {

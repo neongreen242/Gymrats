@@ -14,11 +14,14 @@ public class StartingActivity extends AppCompatActivity {
     private Button btnStartSignIn;
     private Button btnStartSignUp;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_starting);
+
+        if (ParseUser.getCurrentUser() != null){
+            goMainActivity();
+        }
 
         btnStartSignIn = findViewById(R.id.btnStartSignIn);
         btnStartSignUp = findViewById(R.id.btnStartSignUp);
@@ -38,5 +41,11 @@ public class StartingActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+    }
+
+    private void goMainActivity() {
+        Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+        finish();
     }
 }
