@@ -1,5 +1,6 @@
 package com.example.gymrats.fragments;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -17,6 +18,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ImageButton;
 
 import com.example.gymrats.MainActivity;
 import com.example.gymrats.models.Post;
@@ -33,7 +37,9 @@ import java.util.List;
 public class HomeFragment extends Fragment {
 
     protected String filterBy;
-    protected Button btnFilter;
+    protected ImageButton btnFilter;
+    protected View checkBoxView;
+    protected CheckBox checkBox;
     protected PostAdapter adapter;
     protected List<Post> allPosts;
     protected RecyclerView rvPosts;
@@ -48,10 +54,15 @@ public class HomeFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+
+        checkBoxView = View.inflate(getContext(), R.layout.check_box,null);
+
+        checkBox = (CheckBox) checkBoxView.findViewById(R.id.checkbox);
 
         btnFilter = ((MainActivity)getActivity()).findViewById(R.id.btnFilter);
 
@@ -88,12 +99,15 @@ public class HomeFragment extends Fragment {
         rvPosts.setLayoutManager(new LinearLayoutManager(getContext()));
         queryPosts();
 
+        checkBox.setText("Ascending Order");
+
         btnFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builderSingle = new AlertDialog.Builder(getContext());
                 builderSingle.setIcon(R.drawable.gymrats_logo);
                 builderSingle.setTitle("Filter By Muscle");
+                builderSingle.setView(checkBoxView);
 
                 final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.select_dialog_singlechoice);
                 arrayAdapter.add("ABS");
@@ -124,12 +138,16 @@ public class HomeFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog,int which) {
                                 dialog.dismiss();
-                                queryPostsByFilter();
+                                if (checkBox.isChecked()) queryPostsByFilter(false);
+                                else queryPostsByFilter(true);
+
                             }
                         });
+
                         builderInner.show();
                     }
                 });
+
                 builderSingle.show();
             }
         });
@@ -174,7 +192,7 @@ public class HomeFragment extends Fragment {
 
     }
 
-    protected void queryPostsByFilter() {
+    protected void queryPostsByFilter(boolean descending) {
         allPosts.clear();
         Integer postLimit = 10;
 
@@ -187,7 +205,8 @@ public class HomeFragment extends Fragment {
         query.setLimit(postLimit);
         // order posts by creation date (newest first)
         //TODO: add variable for this as well
-        query.addDescendingOrder("createdAt");
+        if (descending) query.addDescendingOrder("createdAt");
+        else query.addAscendingOrder("createdAt");
         // start an asynchronous call for posts
         query.findInBackground(new FindCallback<Post>() {
             @Override
@@ -211,4 +230,5 @@ public class HomeFragment extends Fragment {
             }
         });
     }
+
 }

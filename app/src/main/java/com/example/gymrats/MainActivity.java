@@ -41,7 +41,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    protected Button btnFilter;
+    protected ImageButton btnFilter;
     protected ImageButton btnLogout;
     public static final String TAG = "TAG";
     private BottomNavigationView bottomNavigationView;
