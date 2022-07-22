@@ -141,6 +141,7 @@ public class HomeFragment extends Fragment {
                                 if (checkBox.isChecked()) queryPostsByFilter(false);
                                 else queryPostsByFilter(true);
 
+
                             }
                         });
 
